@@ -249,7 +249,7 @@ export function renderApp(): string {
 
   return `
     <header>
-      <div class="logo">Brain<span>Train</span></div>
+      <div class="logo">ATH<span>ENA</span></div>
       <div class="tagline">Daily Problem</div>
     </header>
     ${renderWorkspace()}

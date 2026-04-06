@@ -1,6 +1,6 @@
 import type { UserProgress } from '../types';
 
-const STORAGE_KEY = 'braintrain_progress';
+const STORAGE_KEY = 'athena_progress';
 
 export function loadProgress(): UserProgress {
   try {
