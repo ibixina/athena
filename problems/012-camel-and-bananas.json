@@ -1,0 +1,32 @@
+{
+    "id": "camel-and-bananas",
+    "title": "The Camel and the Bananas",
+    "difficulty": "Hard",
+    "estimatedTime": "60-120 minutes",
+    "statement": "A merchant has 3000 bananas and needs to transport them to a market 1000 miles away. He uses a camel that can carry at most 1000 bananas at a time. The camel eats 1 banana for every mile it walks (regardless of whether it's carrying a load or walking empty-handed). What is the maximum number of bananas the merchant can bring to the market?",
+    "publishDate": "2026-04-17",
+    "concepts": [
+        {
+            "name": "Optimization Problems",
+            "description": "Finding the best solution from all feasible solutions.",
+            "resourceTitle": "Optimization",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Mathematical_optimization",
+            "readTime": "10 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "The camel needs to establish intermediate stockpiles along the path."
+        },
+        {
+            "order": 2,
+            "content": "Since the camel holds 1000 bananas, how many trips are required to move 3000 bananas forward from the start? It takes 5 trips (3 forward, 2 back to fetch more)."
+        },
+        {
+            "order": 3,
+            "content": "Once the stockpile inevitably drops to 2000 bananas due to consumption, how many trips are heavily required to move 2000 bananas?"
+        }
+    ],
+    "solution": "### Step 1: Moving 3000 Bananas\nTo iteratively move 3000 bananas forward, the camel needs 3 trips forward and 2 return trips. This consumes 5 bananas per mile.\nWe should maintain this inefficiency only until the total stockpile drops to 2000, allowing us to drop a trip. \nLosing 1000 bananas at 5 bananas/mile takes $1000 / 5 = 200$ miles. \nAt mile 200, we perfectly consolidate exactly 2000 bananas.\n\n### Step 2: Moving 2000 Bananas\nTo move 2000 bananas, the camel needs 2 trips forward and 1 return trip, consuming 3 bananas per mile.\nWe maintain this until the total stockpile drops to 1000. \nLosing 1000 bananas at 3 bananas/mile takes $1000 / 3 = 333.33$ miles. Since we deal in whole bananas, we drop one extra. Let's precise it: we travel 333 miles, eating 999 bananas. \nAt mile $200 + 333 = 533$, we have 1001 bananas. We leave 1 behind, taking exactly 1000.\n\n### Step 3: Moving 1000 Bananas\nFor the final 1000, the camel needs only 1 trip forward, consuming 1 banana/mile.\nThe remaining distance to the market is $1000 - 533 = 467$ miles.\nThe camel consumes 467 bananas on this final stretch.\n\nTotal delivered: $1000 - 467 = \\mathbf{533}$ bananas."
+}

@@ -1,0 +1,32 @@
+{
+    "id": "two-egg-problem",
+    "title": "The Two Egg Problem",
+    "difficulty": "Medium",
+    "estimatedTime": "45-90 minutes",
+    "statement": "You have a 100-story building and 2 identical eggs. You want to find the highest floor from which an egg can be dropped without breaking. An egg that survives a fall can be used again. A broken egg is discarded. What is the minimum number of drops you need in the worst case to guarantee finding the critical floor?",
+    "publishDate": "2026-04-14",
+    "concepts": [
+        {
+            "name": "Dynamic Programming",
+            "description": "Solving complex problems by breaking them into overlapping subproblems.",
+            "resourceTitle": "Dynamic Programming",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Dynamic_programming",
+            "readTime": "12 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "If you only had 1 egg, you'd have to start at floor 1 and go up one by one, taking up to 100 drops."
+        },
+        {
+            "order": 2,
+            "content": "With 2 eggs, you can drop the first egg at intervals (e.g., 10, 20, 30). But if it breaks at 10, taking 1 drop, you use up to 9 drops for the rest (total 10). If it breaks at 100, you took 10 drops and need up to 9 more (total 19). Can you balance these worst-case scenarios?"
+        },
+        {
+            "order": 3,
+            "content": "To minimize the maximum drops, the step size should decrease by 1 for each successful drop."
+        }
+    ],
+    "solution": "### Step 1: The Goal\nWe want to minimize the maximum possible number of drops. Let the first egg drop from floor $n$.\nIf it breaks, we must use the second egg to test floors $1$ through $n-1$ linearly. The total drops used will be $1 + (n-1) = n$.\n\n### Step 2: Balancing the Worst Case\nIf the first egg survives, we have used an attempt, so our remaining \"budget\" of drops to stay within the $n$ worst-case limit is now $n-1$.\nTherefore, the next floor we jump to should be $n + (n-1)$.\nIf it survives again, we jump by $(n-2)$, up to $n + (n-1) + (n-2)$, and so forth.\n\n### Step 3: Solving the Equation\nTo cover 100 floors, the sum of these jumps must be at least 100.\n$n + (n-1) + (n-2) + \\dots + 1 \\ge 100$\n$\\frac{n(n+1)}{2} \\ge 100$\n$n^2 + n \\ge 200$\n\nIf $n = 13$, $\\frac{13 \\times 14}{2} = 91$ (not enough).\nIf $n = 14$, $\\frac{14 \\times 15}{2} = 105$ (sufficient).\n\nThe minimum number of drops required in the worst-case scenario is **14**."
+}

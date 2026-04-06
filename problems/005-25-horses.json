@@ -1,0 +1,32 @@
+{
+    "id": "25-horses",
+    "title": "The 25 Horses",
+    "difficulty": "Medium",
+    "estimatedTime": "60-90 minutes",
+    "statement": "You have 25 horses. You want to find the top 3 fastest horses. You have a racetrack that can race at most 5 horses at a time. The track doesn't record times, only the relative finishing order of the horses in each race. What is the minimum number of races needed to confidently find the top 3 horses?",
+    "publishDate": "2026-04-10",
+    "concepts": [
+        {
+            "name": "Sorting Networks and Partial Orders",
+            "description": "Finding minimal comparators to sort or select elements.",
+            "resourceTitle": "Sorting Networks",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Sorting_network",
+            "readTime": "12 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Clearly, you must race all horses at least once. Start by dividing them into 5 groups of 5."
+        },
+        {
+            "order": 2,
+            "content": "After racing the 5 groups, take the 5 winners from each group and race them. What does this reveal?"
+        },
+        {
+            "order": 3,
+            "content": "Can you eliminate any horses from consideration based on the results of these first 6 races?"
+        }
+    ],
+    "solution": "### Step 1: Initial Group Races\nDivide the 25 horses into 5 groups of 5 and race them. This requires **5 races**.\n\n### Step 2: Race of Winners\nTake the 5 winners from each group and race them against each other (**1 race**). \nThe winner of this race is the overall #1 horse.\nLet's name the groups $A$ to $E$ based on how their winners placed in this race ($A_1 > B_1 > C_1 > D_1 > E_1$).\n\n### Step 3: Elimination\nSince we only need the top 3 overall, we can brutally eliminate:\n- Entire groups $D$ and $E$.\n- $C_2, C_3, C_4, C_5$ (At best, $C_1$ could be 3rd overall. Its subordinates are 4th or worse).\n- $B_3, B_4, B_5$ (At best, $B_1$ is 2nd, and $B_2$ is 3rd).\n- $A_4, A_5$ (Since $A_1, A_2, A_3$ are strictly faster).\n\n### Step 4: The Final Race\nWho is left to fight for 2nd and 3rd place? \nThe candidates are: $A_2, A_3$ (from the fastest group), $B_1, B_2$ (from the second group), and $C_1$ (from the third group). \nThis is exactly 5 horses! Race them (**1 race**). The top 2 finishers in this race are the overall 2nd and 3rd fastest horses.\n\nTotal races: 5 + 1 + 1 = **7 races**."
+}

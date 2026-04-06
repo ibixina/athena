@@ -1,0 +1,32 @@
+{
+    "id": "poisoned-wine",
+    "title": "The Poisoned Wine",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "A king has 1000 bottles of wine. One bottle is poisoned. The poison is deadly even in the smallest drops, and takes exactly 24 hours to kill. The king has 10 rats and wants to identify the poisoned bottle in exactly 24 hours. How can he arrange the tasting?",
+    "publishDate": "2026-04-09",
+    "concepts": [
+        {
+            "name": "Binary Representation",
+            "description": "Representing numbers in base-2 system.",
+            "resourceTitle": "Binary Number System",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Binary_number",
+            "readTime": "5 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "We only have 24 hours, so all testing must be done simultaneously in a single round."
+        },
+        {
+            "order": 2,
+            "content": "Each rat has two possible states after 24 hours: dead or alive."
+        },
+        {
+            "order": 3,
+            "content": "Since there are 10 rats, how many different combinations of dead/alive rats can there be? Note that $2^{10} = 1024$."
+        }
+    ],
+    "solution": "### Step 1: Label the Bottles\nNumber the bottles from 1 to 1000. Express each bottle's number in binary. Since $2^{10} = 1024 > 1000$, we need at most 10 bits to represent any bottle number.\n\n### Step 2: Assign the Rats\nLabel the 10 rats with the place values of the bits: Rat 1 represents the 1st bit ($2^0$), Rat 2 represents the 2nd bit ($2^1$), ..., Rat 10 represents the 10th bit ($2^9$).\nRat $i$ drinks a tiny drop from bottle $j$ if and only if the $i$-th bit of the binary representation of $j$ is a 1.\n\n### Step 3: Decode the Results\nWait 24 hours. Observe which rats die. The dead rats correspond to the bits that are a 1 in the binary representation of the poisoned bottle. By converting this binary sequence back to decimal, the king will know exactly which bottle is poisoned."
+}

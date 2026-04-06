@@ -1,0 +1,39 @@
+{
+    "id": "three-gods",
+    "title": "The Three Gods",
+    "difficulty": "Extreme",
+    "estimatedTime": "120-180 minutes",
+    "statement": "Three gods A, B, and C are called, in no particular order, True, False, and Random. True always speaks truly, False always speaks falsely, but whether Random speaks truly or falsely is a completely random coin flip. You must determine the identities of A, B, and C by asking three yes-no questions; each question must be put to exactly one god. The gods understand English, but will answer all questions in their own language, in which the words for yes and no are 'da' and 'ja', in some order. You do not know which word means which.",
+    "publishDate": "2026-04-11",
+    "concepts": [
+        {
+            "name": "Boolean Logic",
+            "description": "Algebraic structure capturing logical operations.",
+            "resourceTitle": "Boolean Algebra",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Boolean_algebra",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Self-reference",
+            "description": "Statements that refer to themselves.",
+            "resourceTitle": "Self-reference",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Self-reference",
+            "readTime": "10 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "You need to bypass the language barrier. Can you construct a question so that 'da' always implies the truth of a statement, regardless of what 'da' actually translates to?"
+        },
+        {
+            "order": 2,
+            "content": "Try embedding a hypothetical about the god's own behavior. E.g., 'If I asked you Q, would you say 'ja'?'"
+        },
+        {
+            "order": 3,
+            "content": "Your first overarching goal must be to find a god you are CERTAIN is not Random."
+        }
+    ],
+    "solution": "### Step 1: The Magic Lemma\nLet $Q$ be a yes/no statement. Ask any non-Random god: 'If I asked you $Q$, would you answer \"ja\"?'\nBy rigorous truth table analysis (considering if the god is True/False, and if 'ja' means yes/no), the god's answer will universally be 'ja' if $Q$ is true, and 'da' if $Q$ is false. It perfectly decodes the language and the truth-teller/liar property.\n\n### Step 2: Question 1\nAsk God B: 'If I asked you \"Is God A Random?\", would you answer \"ja\"?'\n- If B answers 'ja', then A is Random (if B is True/False), OR B is Random. In either case, C is NOT Random.\n- If B answers 'da', then A is not Random (if B is True/False), OR B is Random. In either case, A is NOT Random.\nLet's say the answer points to God X being NOT Random.\n\n### Step 3: Question 2\nAsk God X (who is definitely True or False): 'If I asked you \"Are you True?\", would you answer \"ja\"?'\n- If X answers 'ja', X is True.\n- If X answers 'da', X is False.\n\n### Step 4: Question 3\nAsk God X: 'If I asked you \"Is God A Random?\", would you answer \"ja\"?'\n- The answer directly evaluates if A is Random (since X is reliable). \n- By elimination, you can then deduce the identity of the third god."
+}

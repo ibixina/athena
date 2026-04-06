@@ -1,0 +1,39 @@
+{
+    "id": "12-coin-problem",
+    "title": "12 Coins and a Balance",
+    "difficulty": "Hard",
+    "estimatedTime": "60-120 minutes",
+    "statement": "You have 12 seemingly identical coins. 11 of them have exactly the same weight, but one is fake and is either strictly lighter or strictly heavier than the others. You have a balance scale. What is the minimum number of weighings needed to guarantee finding the fake coin and determining whether it is heavier or lighter?",
+    "publishDate": "2026-04-13",
+    "concepts": [
+        {
+            "name": "Information Theory",
+            "description": "Quantifying the amount of information in outcomes.",
+            "resourceTitle": "Information Theory",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Information_theory",
+            "readTime": "15 min"
+        },
+        {
+            "name": "Decision Trees",
+            "description": "Hierarchical models of decision pathways.",
+            "resourceTitle": "Decision Tree",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Decision_tree",
+            "readTime": "8 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Each weighing has 3 possible outcomes: Left heavy, Right heavy, or Balanced."
+        },
+        {
+            "order": 2,
+            "content": "There are 24 possible scenarios (12 coins * 2 states: heavy/light). With 3 weighings, you have $3^3 = 27$ branches, so 3 is theoretically possible."
+        },
+        {
+            "order": 3,
+            "content": "Start by dividing the 12 coins into 3 groups of 4."
+        }
+    ],
+    "solution": "### Overview\nIt can be done in exactly **3 weighings**. Divide coins into A, B, and C (4 coins each).\n\n### Step 1: Weigh A against B\n**Case 1: They balance.** The fake is in C. A and B are all real.\n- **Weigh 2**: Weigh 3 coins from C against 3 known real coins.\n  - If they balance, the 4th coin in C is fake. **Weigh 3** against a real coin to check if it's heavy/light.\n  - If they tilt, you know if the fake is heavy or light, and it's isolated to 3 coins. **Weigh 3**: Weigh 1 suspect vs 1 suspect.\n\n**Case 2: They do not balance.** Assume A is heavier (symmetric logic for B heavier). The fake is either heavy in A, or light in B. C is all real.\n- **Weigh 2**: Weigh (3 from A + 1 from B) vs (1 from A + 3 from C). Let's call them $A_1,A_2,A_3,B_1$ vs $A_4,C_1,C_2,C_3$.\n  - If they balance, the fake is in the remaining 3 of B ($B_2, B_3, B_4$), and must be light. **Weigh 3**: Weigh $B_2$ vs $B_3$.\n  - If the left is heavy, the heavy fake must be in $A_1, A_2, A_3$. **Weigh 3**: Weigh $A_1$ vs $A_2$.\n  - If the right is heavy, either $B_1$ is light, or $A_4$ is heavy. **Weigh 3**: Weigh $A_4$ against a real coin.\n\nIn all branches, 3 weighings are sufficient."
+}

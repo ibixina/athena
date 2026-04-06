@@ -1,0 +1,39 @@
+{
+    "id": "blue-eyed-islanders",
+    "title": "The Blue-Eyed Islanders",
+    "difficulty": "Hard",
+    "estimatedTime": "60-120 minutes",
+    "statement": "A group of 100 people live on an island. They all have blue eyes, but nobody knows their own eye color. They are forbidden to communicate about eye color. There are no mirrors. If a person figures out they have blue eyes, they must leave the island on the ferry that night at midnight. One day, a guru visits the island and announces universally: 'I see someone with blue eyes.' Assuming all islanders are perfectly logical, what happens?",
+    "publishDate": "2026-04-07",
+    "concepts": [
+        {
+            "name": "Common Knowledge",
+            "description": "Information that is known by everyone, and everyone knows that everyone knows it, ad infinitum.",
+            "resourceTitle": "Common Knowledge (Logic)",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Common_knowledge_(logic)",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Mathematical Induction",
+            "description": "A method of mathematical proof typically used to establish a given statement for all natural numbers.",
+            "resourceTitle": "Mathematical Induction",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Mathematical_induction",
+            "readTime": "8 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "What happens if there is exactly 1 person with blue eyes on the island?"
+        },
+        {
+            "order": 2,
+            "content": "If there are exactly 2 people with blue eyes, what do they observe on the first day? What do they conclude on the second day when no one leaves?"
+        },
+        {
+            "order": 3,
+            "content": "Generalize the pattern using mathematical induction for 'k' people with blue eyes."
+        }
+    ],
+    "solution": "### Step 1: Base Case (n = 1)\nIf there was only 1 blue-eyed person, they would see 99 brown-eyed people. Knowing *someone* has blue eyes due to the guru's statement, they would realize it must be them and leave on Night 1.\n\n### Step 2: Inductive Step (n = 2)\nIf there were 2 blue-eyed people, each sees exactly 1 blue-eyed person. They both think, 'If that person is the only blue-eyed one, they will leave tonight.' When no one leaves on Night 1, they both deduce *they* must be the second blue-eyed person. Thus, both leave on Night 2.\n\n### Step 3: Generalization\nBy induction, if there are $k$ blue-eyed people, they will all wait $k-1$ nights. Seeing nobody leave by the $k-1$th night, they will deduce their own eye color and leave simultaneously on the $k$-th night.\n\n### Conclusion\nSince all 100 islanders have blue eyes, no one will leave for 99 nights. On the 100th midnight, all 100 islanders will leave the island together."
+}

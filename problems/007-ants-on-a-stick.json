@@ -1,0 +1,32 @@
+{
+    "id": "ants-on-a-stick",
+    "title": "Ants on a Stick",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "100 ants are walking on a meter stick (100 cm). Each ant travels at a constant speed of 1 cm per second. They start at various positions and arbitrary directions. When two ants collide, they instantly reverse direction and continue at the same speed. If an ant reaches either end of the stick, it falls off. What is the maximum possible time before all ants have fallen off the stick, from any starting configuration?",
+    "publishDate": "2026-04-12",
+    "concepts": [
+        {
+            "name": "Invariants and Symmetry",
+            "description": "Properties of a system that remain unchanged under some transformations.",
+            "resourceTitle": "Invariant",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Invariant_(mathematics)",
+            "readTime": "10 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "What actually happens to the global system of ants during a collision?"
+        },
+        {
+            "order": 2,
+            "content": "Since the ants are identical, does it matter which ant is which?"
+        },
+        {
+            "order": 3,
+            "content": "Imagine the ants simply pass through each other instead of bouncing. How does this change the macro-state?"
+        }
+    ],
+    "solution": "### Step 1: The Insight\nWhen two ants collide, they bounce and reverse directions. However, because all ants travel at exactly the same speed and are otherwise identical, the collision is functionally identical to them simply **passing through each other**.\nIf we ignore the identities of the ants, the set of positions of the ants over time is exactly the same whether they bounce or pass through.\n\n### Step 2: Pass-Through Analysis\nIf we assume they pass through each other, each 'virtual' ant just walks continuously at 1 cm/s in its original direction until it falls off the end.\n\n### Step 3: Finding the Maximum Time\nThe maximum time an ant can stay on the stick without changing direction is determined by the length of the stick. If an ant starts at one edge (e.g., 0 cm) and walks towards the other edge (100 cm), it will take exactly 100 seconds to fall off.\nSince 'bouncing' is macroscopically identical to 'passing through', the maximum possible time before the stick is empty is **100 seconds**."
+}

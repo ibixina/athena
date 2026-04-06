@@ -1,0 +1,32 @@
+{
+    "id": "100-prisoners-boxes",
+    "title": "100 Prisoners and 100 Boxes",
+    "difficulty": "Hard",
+    "estimatedTime": "90-120 minutes",
+    "statement": "There are 100 prisoners numbered 1 to 100. The warden places their numbers randomly in 100 boxes in a room, one number per box. Each prisoner enters the room, opens up to 50 boxes, looks inside, and then leaves. They cannot communicate afterward. If *every* prisoner finds their own number, all are freed. If even one fails, all are executed. Is there a strategy that yields a better than $(1/2)^{100}$ survival rate?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Permutations and Cyles",
+            "description": "Understanding how random arrangements can form disjoint cycles.",
+            "resourceTitle": "Permutation Cycles",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Permutation#Cycle_notation",
+            "readTime": "15 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "If prisoners just choose 50 boxes randomly, the probability of everyone succeeding is indeed extremely small."
+        },
+        {
+            "order": 2,
+            "content": "View the boxes and their contents as a random permutation of the numbers 1 to 100."
+        },
+        {
+            "order": 3,
+            "content": "What if prisoner $k$ opens box $k$, and then opens the box corresponding to the number found inside?"
+        }
+    ],
+    "solution": "### Step 1: The Strategy\nPrisoner $k$ opens box $k$. They look at the number inside, say $n_1$. They then open box $n_1$, read the number $n_2$, and so forth. They continue tracing this path until they either find their own number $k$ or open 50 boxes.\n\n### Step 2: Why it Works\nThe boxes form a random permutation of 1 to 100. Every permutation decomposes into disjoint cycles. By starting at box $k$, the prisoner is tracing the cycle containing their own number $k$.\nThey will definitely find their number if and only if the cycle containing $k$ has a length of at most 50.\n\n### Step 3: Probabilistic Analysis\nThe prisoners all succeed if the entire permutation contains NO cycle of length greater than 50. What is the probability of a random permutation of 100 elements having no cycle longer than 50?\nIt turns out to be $1 - \\sum_{k=51}^{100} \\frac{1}{k} \\approx 1 - \\ln(2) \\approx 0.3118$.\n\nThus, this strategy gives them an astonishing ~31% chance of survival!"
+}
