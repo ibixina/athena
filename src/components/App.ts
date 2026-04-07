@@ -198,6 +198,12 @@ function startCountdown(): void {
   }, 1000);
 }
 
+export function startCountdownIfSolved(): void {
+  if (isProblemSolved(currentProblem.id)) {
+    startCountdown();
+  }
+}
+
 function renderNotesPane(): string {
   const savedContent = getScratchpad(currentProblem.id);
   return `
