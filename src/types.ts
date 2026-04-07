@@ -14,7 +14,7 @@ export interface Hint {
 export interface Problem {
   id: string;
   title: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
+  difficulty: 'Easy' | 'Medium' | 'Hard' | 'Extreme';
   estimatedTime: string;
   statement: string;
   publishDate: string;

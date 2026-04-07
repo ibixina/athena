@@ -1,47 +1,10 @@
 import type { Problem } from '../types';
 
-const problems: Problem[] = [
-  {
-    id: 'duplicate-subsets',
-    title: 'Duplicate Subset Sums',
-    difficulty: 'Medium',
-    estimatedTime: '45-90 minutes',
-    statement: 'You are given 10 distinct positive integers, each at most 100. Prove that there exist two **different non-empty subsets** of these integers that have the **same sum**.',
-    publishDate: '2026-04-06',
-    concepts: [
-      {
-        name: 'Subsets and Combinations',
-        description: 'Understanding how many ways we can form groups from a larger set.',
-        resourceTitle: 'Combinatorics: Subsets',
-        resourceUrl: 'https://en.wikipedia.org/wiki/Subset',
-        readTime: '3 min'
-      },
-      {
-        name: 'The Pigeonhole Principle',
-        description: 'If you have more pigeons than holes, at least one hole must contain more than one pigeon.',
-        resourceTitle: 'Introduction to Pigeonhole Principle',
-        resourceUrl: 'https://artofproblemsolving.com/wiki/index.php/Pigeonhole_Principle',
-        readTime: '5 min'
-      }
-    ],
-    hints: [
-      { order: 1, content: 'How many non-empty subsets are there for a set of 10 elements?' },
-      { order: 2, content: 'What is the smallest possible sum a subset could have? What is the largest possible sum, knowing each integer is at most 100?' },
-      { order: 3, content: 'Compare the number of possible non-empty subsets to the number of distinct possible sums. Apply the Pigeonhole Principle.' }
-    ],
-    solution: `### Step 1: Count the Subsets
-A set of 10 distinct elements has $2^{10} = 1024$ subsets in total. Excluding the empty set, there are **1023 non-empty subsets**.
+const problemModules = import.meta.glob<{ default: Problem }>('../../problems/*.json', { eager: true });
 
-### Step 2: Determine the Range of Possible Sums
-The minimum possible sum is 1, assuming 1 is in the subset.
-The maximum possible sum occurs if the set consists of the 10 largest possible integers (91, 92, ..., 100). That sum is $91 + 92 + \\dots + 100 = 955$.
-
-Thus, any subset sum must be an integer between 1 and 955 inclusive.
-
-### Step 3: Apply the Pigeonhole Principle
-We have 1023 different non-empty subsets (the 'pigeons'), but only 955 possible sum values (the 'holes'). Since $1023 > 955$, by the Pigeonhole Principle, at least two different non-empty subsets must map to the same sum. $\\blacksquare$`
-  }
-];
+const problems: Problem[] = Object.values(problemModules)
+  .map((mod) => mod.default)
+  .sort((a, b) => a.publishDate.localeCompare(b.publishDate));
 
 export function getTodayProblem(): Problem {
   const today = new Date().toISOString().split('T')[0];
