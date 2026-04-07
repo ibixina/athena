@@ -1,4 +1,5 @@
 import type { Problem } from '../types';
+import { loadProgress } from './state';
 
 const problemModules = import.meta.glob<{ default: Problem }>('../../problems/*.json', { eager: true });
 
@@ -11,11 +12,20 @@ export function getTodayProblem(): Problem {
   const problem = problems.find(p => p.publishDate === today);
   if (problem) return problem;
 
+  const progress = loadProgress();
+  const unsolvedProblems = problems.filter(p => !progress.solvedProblems.includes(p.id));
+
+  const targetList = unsolvedProblems.length > 0 ? unsolvedProblems : problems;
+
   const daysSinceStart = Math.floor(
     (new Date().getTime() - new Date('2026-04-06').getTime()) / (1000 * 60 * 60 * 24)
   );
-  const index = ((daysSinceStart % problems.length) + problems.length) % problems.length;
-  return problems[index];
+
+  // Use a pseudo-random seed based on the date
+  const seed = (daysSinceStart * 16807) % 2147483647;
+  const index = seed % targetList.length;
+
+  return targetList[index];
 }
 
 export function getAllProblems(): Problem[] {
