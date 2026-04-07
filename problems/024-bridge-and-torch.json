@@ -1,0 +1,39 @@
+{
+    "id": "bridge-and-torch",
+    "title": "The Bridge and Torch Problem",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "Four people come to a perilous river in the dark of night. There is a narrow bridge spanning the river, but it can only hold a maximum of two people at a time. They have exactly one torch and, because the bridge is extremely dangerous, the torch must be used when crossing. Person A can cross the bridge in 1 minute, Person B in 2 minutes, Person C in 5 minutes, and Person D in 10 minutes. When two people cross the bridge together, they must move at the slower person's pace. The torch cannot be thrown across the river; it must be physically carried back across by someone. What is the minimum possible time required for all four people to successfully cross to the other side?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "State Space Search",
+            "description": "A process of generating and investigating discrete states in a defined space to find a mathematically optimal path.",
+            "resourceTitle": "Graph Traversals",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Graph_traversal",
+            "readTime": "8 min"
+        },
+        {
+            "name": "Algorithmic Optimization",
+            "description": "Improving an algorithm so it executes using fewer resources or completes faster.",
+            "resourceTitle": "Program Optimization",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Program_optimization",
+            "readTime": "10 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "A naive approach is to use the fastest person (A, 1 minute) to ferry everyone across individually. What total time does that strategy yield?"
+        },
+        {
+            "order": 2,
+            "content": "To minimize the total time, the two slowest people (C and D, 5 and 10) shouldn't cross separately. They should cross *together* to efficiently absorb C's time into D's time."
+        },
+        {
+            "order": 3,
+            "content": "If C and D cross together, neither of them should be the one to carry the torch back, as that would waste time. Who needs to already be waiting on the other side to bring the torch back for them?"
+        }
+    ],
+    "solution": "### Step 1: The Greedy Sub-Optimal Strategy\nThe intuitive initial assumption is that Person A (1 minute), the fastest, should permanently shuttle the torch. Let's calculate the greedy result:\n1. A and B cross: 2 minutes\n2. A returns: 1 minute\n3. A and C cross: 5 minutes\n4. A returns: 1 minute\n5. A and D cross: 10 minutes\nTotal time: $2 + 1 + 5 + 1 + 10 = 19$ minutes.\n\n### Step 2: Optimizing the Bottleneck\nThe biggest bottleneck is that 5 and 10 cross individually. If we send C (5) and D (10) together, it only takes 10 minutes total, effectively erasing the 5-minute penalty. \nHowever, if we send C and D across, one of them will have to bring the torch back, which is incredibly slow.\nTo prevent this, someone fast needs to *already be on the target side* of the bridge so they can ferry the torch back after C and D arrive.\n\n### Step 3: The Optimal Sequence\nWe utilize A and B as an advance party to shuttle the torch back and forth for the slow group.\n1. **A (1) and B (2) cross together.** The time taken is 2 minutes. (Target side now has A and B).\n2. **A (1) returns with the torch.** Time taken is 1 minute. (Start side now has A, C, and D).\n3. **C (5) and D (10) cross together.** Time taken is 10 minutes. (Target side now has C, D, and crucially, B, who is waiting).\n4. **B (2) returns with the torch.** Time taken is 2 minutes. (Start side now has A and B).\n5. **A (1) and B (2) cross together for the final time.** Time taken is 2 minutes. Everyone is across.\n\n### Conclusion\nSumming the specific optimized crossing times: $2 + 1 + 10 + 2 + 2 = 17$.\nThe minimum absolute time required for all four to cross is **17 minutes**. $\\blacksquare$"
+}

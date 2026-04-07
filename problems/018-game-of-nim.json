@@ -1,0 +1,39 @@
+{
+    "id": "game-of-nim",
+    "title": "The Game of Nim",
+    "difficulty": "Hard",
+    "estimatedTime": "60-90 minutes",
+    "statement": "Two players are playing a game with three heaps of matches. The first heap has 3 matches, the second has 4, and the third has 5. Players take turns removing any positive number of matches from a single chosen heap. The player who takes the last match on the table wins the game. If both players play perfectly, does the first player or the second player have a guaranteed winning strategy? If so, what is the optimal first move?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Combinatorial Game Theory",
+            "description": "Mathematical theory that studies sequential games with perfect information.",
+            "resourceTitle": "Combinatorial Game Theory",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Combinatorial_game_theory",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Nim-Sum (XOR)",
+            "description": "A specific non-carrying binary addition used to evaluate mathematical games.",
+            "resourceTitle": "Nim",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Nim",
+            "readTime": "12 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Represent the size of each heap (3, 4, and 5) in binary representation."
+        },
+        {
+            "order": 2,
+            "content": "Perform a bitwise XOR (exclusive OR) operation across all three binary numbers. In game theory, this is known as the 'nim-sum'."
+        },
+        {
+            "order": 3,
+            "content": "According to Bouton's Theorem, a player has a winning strategy if and only if the nim-sum of the heap sizes is strictly greater than 0 before their turn."
+        }
+    ],
+    "solution": "### Step 1: Converting to Binary\nThe game of Nim is fully solved by translating the heap sizes into binary blocks. Let's write the sizes of the three heaps in binary:\n- Heap 1: $3 \\rightarrow 011_2$\n- Heap 2: $4 \\rightarrow 100_2$\n- Heap 3: $5 \\rightarrow 101_2$\n\n### Step 2: Calculating the Nim-Sum\nIn Combinatorial Game Theory, the state of the game is determined by its **nim-sum** (the bitwise XOR, denoted as $\\oplus$, of the heap sizes). We do this by adding the columns of the binary numbers without carrying over, taking the result modulo 2.\n\n  $011$\n  $100$\n+ $101$\n-------\n  $010$\n\nConverting $010_2$ back to decimal gives a nim-sum of **2**. \n\n### Step 3: Bouton's Theorem\nCharles Bouton proved that in a normal play game of Nim, the first player to move has a guaranteed winning strategy if and only if the nim-sum of the initial heaps is strictly greater than zero. Since our initial nim-sum is 2, **the first player has a guaranteed winning strategy**.\n\nA winning move must be one that leaves the board with a nim-sum of exactly 0 for the opponent. If the opponent receives a board with a nim-sum of 0, any move they make will force the nim-sum to become non-zero again, allowing the first player to perpetually maintain control until the heaps are empty.\n\n### Step 4: Finding the Winning Move\nTo make the nim-sum 0, the first player needs to alter a single heap such that its new binary value XOR-ed with the remaining heaps equals 0.\nWe XOR the current total nim-sum ($010_2$) with each heap to see what the target size should be:\n- Heap 1: $011 \\oplus 010 = 001_2$ (which is 1). Since $1 < 3$, reducing Heap 1 to 1 is a valid move.\n- Heap 2: $100 \\oplus 010 = 110_2$ (which is 6). Since $6 > 4$, we cannot increase a heap.\n- Heap 3: $101 \\oplus 010 = 111_2$ (which is 7). Since $7 > 5$, we cannot increase a heap.\n\n### Conclusion\nThe first player has the winning strategy. The unique optimal first move is to **take 2 matches from the first heap**, leaving 1 match. This makes the heaps 1, 4, 5, which has a nim-sum of exactly 0. $\\blacksquare$"
+}

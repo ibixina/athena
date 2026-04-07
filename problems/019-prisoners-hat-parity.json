@@ -1,0 +1,39 @@
+{
+    "id": "prisoners-hat-parity",
+    "title": "The Prisoners' Hat Parity",
+    "difficulty": "Hard",
+    "estimatedTime": "45-90 minutes",
+    "statement": "One hundred prisoners are lined up facing forward in a single-file line. The executioner places either a black hat or a white hat on each prisoner's head. Every prisoner can see the hats of everyone in front of them in the line, but they cannot see their own hat, nor the hats of the people behind them. \nStarting from the back of the line (the person who can see the 99 hats in front of them), each prisoner must guess the color of their own hat out loud. The executioner will execute anyone who guesses incorrectly. The prisoners are allowed to devise a strategy beforehand, but once the hats are placed, they can only communicate by saying the word 'Black' or 'White' on their turn. What strategy guarantees the maximum number of survivors, and how many prisoners are guaranteed to survive?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Parity Bit",
+            "description": "An additional bit of information that acts as a check on a set of binary values.",
+            "resourceTitle": "Parity Bit",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Parity_bit",
+            "readTime": "6 min"
+        },
+        {
+            "name": "Information Theory",
+            "description": "The mathematical study of the quantification, storage, and communication of information.",
+            "resourceTitle": "Information Theory",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Information_theory",
+            "readTime": "12 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "The person at the very back can't possibly deduce their own hat color, so they have a 50% chance of dying anyway. Could they sacrifice their guess to encode information for the remaining 99 prisoners?"
+        },
+        {
+            "order": 2,
+            "content": "There are two colors. Think of 'Black' as 1 and 'White' as 0. How can the back prisoner communicate the parity (even or odd sum) of the remaining 99 hats?"
+        },
+        {
+            "order": 3,
+            "content": "If the back prisoner says 'Black' when they see an odd number of black hats, how can the next prisoner figure out their own hat from what they see in front of them?"
+        }
+    ],
+    "solution": "### Step 1: Evaluating Information Transfer\nSince the prisoner at the very back of the line cannot see their own hat or hear anyone else's guess, they have exactly 0 bits of information about their own hat. They have a $50\\%$ chance of survival no matter what.\nHowever, this first prisoner's guess is heard by all 99 people in front of them. The prisoners can agree beforehand that the first person's guess conveys a mathematical invariant about the 99 hats they see.\n\n### Step 2: The Parity Strategy\nThe prisoners agree on the following rule:\n- The first prisoner (at the back) will count the number of **Black** hats they see in front of them.\n- If the number of Black hats is **odd**, they shout 'Black'.\n- If the number of Black hats is **even**, they shout 'White'.\n\n### Step 3: Deduction by the Remaining Prisoners\nNow consider the second prisoner from the back (who can see 98 hats).\n- They heard the first prisoner. Let's assume the first prisoner shouted 'Black' (meaning there are an odd number of Black hats among prisoners 2 through 100).\n- The second prisoner counts the Black hats they see in front of them (prisoners 3 through 100).\n- If they count an **even** number of Black hats in front, but the total sum (2 through 100) is **odd**, then their own hat MUST be Black.\n- If they count an **odd** number of Black hats in front, and the total sum is **odd**, then their own hat MUST be White.\n\nAfter the second prisoner shouts their deduced hat color, they are 100% guaranteed to survive. \n\nWhat about the third prisoner?\n- The third prisoner saw the 97 hats in front of them. \n- They heard the parity of 2-100 from the first prisoner.\n- They heard the exact color of prisoner 2's hat.\n- Using this information, they mentally subtract prisoner 2's hat from the grand total. They now know the exact parity of prisoners 3-100. By comparing this to what they see (prisoners 4-100), they deduce their own hat with 100% certainty.\n\n### Conclusion\nThis chain of logic continues down the entire line. Every prisoner dynamically tracks the running parity using the very first announcement and the subsequent correct guesses behind them. \nBy using a **[Parity Bit](https://en.wikipedia.org/wiki/Parity_bit)**, the first prisoner faces a 50/50 chance, but provides enough information to guarantee the survival of the other 99.\nThus, this strategy guarantees **exactly 99 survivors**. $\\blacksquare$"
+}

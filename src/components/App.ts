@@ -67,7 +67,11 @@ function renderProblemPane(): string {
   return `
     <div class="problem-card">
       <div class="problem-header">
-        <h2 class="problem-title">${p.title}</h2>
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <h2 class="problem-title">${p.title}</h2>
+          ${renderActions(p, solved)}
+          ${solved ? renderCompletedBanner() : ''}
+        </div>
         <div class="problem-meta">
           <span class="difficulty ${p.difficulty.toLowerCase()}">${p.difficulty}</span>
           <span class="time-estimate">${p.estimatedTime}</span>
@@ -77,9 +81,7 @@ function renderProblemPane(): string {
       ${renderConcepts(p)}
       ${renderHints(p)}
       ${renderSolution(p)}
-      ${renderActions(p, solved)}
     </div>
-    ${solved ? renderCompletedBanner() : ''}
   `;
 }
 
@@ -145,12 +147,11 @@ function renderSolution(p: Problem): string {
 }
 
 function renderActions(p: Problem, solved: boolean): string {
+  if (solved) return '';
   return `
-    <div class="actions">
-      ${solved ? '' : `<button class="btn btn-primary" onclick="window.markSolved('${p.id}')">
-        ✓ Mark as Solved
-      </button>`}
-    </div>
+    <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="window.markSolved('${p.id}')">
+      ✓ Mark as Solved
+    </button>
   `;
 }
 
@@ -170,14 +171,11 @@ let countdownInterval: ReturnType<typeof setInterval> | null = null;
 
 function renderCompletedBanner(): string {
   return `
-    <div class="completed-banner">
-      <span class="icon">🎉</span>
-      <div class="text">
-        <strong>Completed!</strong> Great work on today's problem.
-      </div>
-      <div class="countdown-timer">
-        <span class="countdown-label">Next problem in</span>
-        <span class="countdown-value" id="countdown">${getTimeUntilNextProblem()}</span>
+    <div class="completed-badge" style="display: flex; align-items: center; gap: 1rem; border: 2px solid var(--success); color: var(--success); padding: 0.5rem 1rem; font-family: var(--font-mono); font-weight: 800; text-transform: uppercase; font-size: 0.85rem;">
+      <span>🎉 Completed!</span>
+      <div class="countdown-timer" style="display: flex; gap: 0.5rem; padding-top: 0; border-top: none; align-items: center; width: auto;">
+        <span class="countdown-label" style="font-size: 0.75rem;">Next:</span>
+        <span class="countdown-value" id="countdown" style="font-size: 1rem;">${getTimeUntilNextProblem()}</span>
       </div>
     </div>
   `;
@@ -390,9 +388,17 @@ export function renderApp(): string {
     const count = openConceptIndexes.length;
     vPaneHeights = openConceptIndexes.map(() => 100 / count);
   }
+  const wasReaderOpen = readerOpen;
   readerOpen = openConceptIndexes.length > 0;
-  if (paneWidths.length === 2 && readerOpen) {
-    paneWidths = [33, 34, 33];
+  if (!wasReaderOpen && readerOpen) {
+    if (paneWidths.length === 2 || paneWidths[2] === 0) {
+      if (paneWidths[0] > 33) {
+        paneWidths[0] -= 33;
+        paneWidths[2] = 33;
+      } else {
+        paneWidths = [33, 34, 33];
+      }
+    }
   }
   refreshApp();
 };

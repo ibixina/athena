@@ -1,0 +1,39 @@
+{
+    "id": "cheryls-birthday",
+    "title": "Cheryl's Birthday",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "Albert and Bernard just became friends with Cheryl, and they want to know when her birthday is. Cheryl gives them a list of 10 possible dates:\n- May 15, May 16, May 19\n- June 17, June 18\n- July 14, July 16\n- August 14, August 15, August 17\n\nCheryl then tells Albert and Bernard separately the month and the day of her birthday respectively (Albert only knows the month, Bernard only knows the day).\n\nAlbert: \"I don't know when Cheryl's birthday is, but I know that Bernard does not know too.\"\nBernard: \"At first I didn't know when Cheryl's birthday was, but now I know.\"\nAlbert: \"Then I also know when Cheryl's birthday is.\"\n\nSo when is Cheryl's birthday?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Logical Deduction",
+            "description": "The process of reasoning from one or more statements to reach a logically certain conclusion.",
+            "resourceTitle": "Deductive Reasoning",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Deductive_reasoning",
+            "readTime": "5 min"
+        },
+        {
+            "name": "Common Knowledge",
+            "description": "Information that everyone knows, and everyone knows that everyone knows.",
+            "resourceTitle": "Common Knowledge (Logic)",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Common_knowledge_(logic)",
+            "readTime": "5 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Look at Albert's first statement: he knows Bernard doesn't know. Which days are mathematically unique initially?"
+        },
+        {
+            "order": 2,
+            "content": "Days 18 and 19 appear only once. If Bernard had 18 or 19, he would know the birthday immediately. Since Albert knows Bernard *doesn't* know, Albert's month cannot possibly contain the 18th or 19th."
+        },
+        {
+            "order": 3,
+            "content": "Once those months are eliminated, Bernard suddenly knows the date. Which dates remain, and which of their days are unique among the remaining options?"
+        }
+    ],
+    "solution": "### Step 1: Albert's First Statement\nAlbert says: \"I don't know when Cheryl's birthday is, but I know that Bernard does not know too.\"\nIf Bernard knew the exact date right away, it means the day he was told is unique across all options. The only unique days are **18 (June 18)** and **19 (May 19)**. \nIf Albert was told May or June, he would know there's a *chance* Bernard was holding 18 or 19, so Albert couldn't be absolutely sure Bernard didn't know.\nThe only way Albert can be 100% certain that Bernard doesn't know is if Albert's month contains *no* unique days. Therefore, Albert's month must be either **July** or **August**.\nRemaining possibilities:\n- July 14, July 16\n- August 14, August 15, August 17\n\n### Step 2: Bernard's Response\nBernard says: \"At first I didn't know when Cheryl's birthday was, but now I know.\"\nBernard, holding the specific day, has been listening. He just logically eliminated May and June alongside us. He is now looking at the July and August dates.\nSince he now knows the date precisely, his day must pinpoint the exact month. If he were holding **14**, he still wouldn't know if it was July 14 or August 14. Therefore, the day cannot be 14.\nRemaining possibilities:\n- July 16\n- August 15, August 17\n\n### Step 3: Albert's Final Deduction\nAlbert says: \"Then I also know when Cheryl's birthday is.\"\nAlbert knows the month. If his month were August, he would still be choosing between August 15 and August 17, so he wouldn't know the exact date. Because he *does* know the exact date, his month must be the one with only a single remaining option.\nThat month is **July**. \n\n### Conclusion\nThe only remaining valid date is **July 16**. $\\blacksquare$"
+}

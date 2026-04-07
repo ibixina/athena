@@ -1,0 +1,39 @@
+{
+    "id": "three-utilities",
+    "title": "The Three Utilities Problem",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "There are three distinct houses (A, B, C) and three utility companies (Water, Gas, Electricity) located on a flat, infinite 2D plane. You need to connect each of the three houses to each of the three utilities using continuous line segments. The lines must be drawn purely on the 2D plane and absolutely cannot cross over or intersect each other. Is it possible to make all 9 connections mathematically without any lines crossing? If so, how? If not, logically prove why.",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Planar Graphs",
+            "description": "A graph that can be embedded in the plane, i.e., it can be drawn on the plane in such a way that its edges intersect only at their endpoints.",
+            "resourceTitle": "Planar Graph",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Planar_graph",
+            "readTime": "12 min"
+        },
+        {
+            "name": "Euler's Formula",
+            "description": "A topological formula relating the number of vertices, edges, and faces of a planar graph.",
+            "resourceTitle": "Euler Characteristic",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Euler_characteristic",
+            "readTime": "15 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "This is equivalent to asking if the complete bipartite graph $K_{3,3}$ is planar."
+        },
+        {
+            "order": 2,
+            "content": "According to Euler's formula for planar graphs, $V - E + F = 2$, where V is Vertices, E is Edges, and F is contiguous Faces."
+        },
+        {
+            "order": 3,
+            "content": "In a bipartite graph, the smallest possible enclosed cycle (face boundary) requires exactly 4 edges. Substitute this geometric boundary relation into Euler's formula."
+        }
+    ],
+    "solution": "### Step 1: Mapping to Graph Theory\nThis riddle mathematically translates to asking if the complete bipartite graph $K_{3,3}$ is a **[Planar Graph](https://en.wikipedia.org/wiki/Planar_graph)**. \nWe are connecting two sets of 3 vertices to each other. The total number of Vertices ($V$) is $6$. The total number of Edges ($E$) required is $3 \\times 3 = 9$.\n\n### Step 2: Euler's Formula\nAny graph that can be drawn on a 2D plane without edges crossing must obey **[Euler's Formula](https://en.wikipedia.org/wiki/Euler_characteristic)**:\n$V - E + F = 2$\nWhere $F$ encompasses the number of regions (Faces) divided by the drawn lines, including the infinite exterior face.\nIf $K_{3,3}$ were planar, we could substitute our numbers: $6 - 9 + F = 2 \\implies F = 5$. \nSo, a planar drawing *must* enclose exactly 5 faces.\n\n### Step 3: Determining Face Boundaries\nEvery face in a graph is bounded by a cycle of edges. In $K_{3,3}$, paths must alternate strictly between a 'House' node and a 'Utility' node. Therefore, an enclosed polygonal cycle cannot have 3 edges (which would imply a triangle between two houses or two utilities). The shortest possible cycle that can enclose an area in a bipartite graph requires at least 4 edges.\nBecause each face must be bounded by at least 4 edges, and every edge strictly separates at most 2 faces, we can formulate inequality:\n$4F \\le 2E$\nWe plug in the known assumed face count ($F=5$) and actual edge count ($E=9$):\n$4(5) \\le 2(9)$\n$20 \\le 18$\n\n### Conclusion\nThe mathematical statement $20 \\le 18$ is a contradiction. Because the edge requirements structurally violate Euler's planar boundary limit, it is structurally impossible. \nNote: By Kuratowski's Theorem, $K_{3,3}$ alongside $K_{5}$, are the foundational pillars of all non-planar graphs.\nIt is **impossible** to connect them without a crossing. $\\blacksquare$"
+}

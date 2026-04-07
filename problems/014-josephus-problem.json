@@ -1,0 +1,39 @@
+{
+    "id": "josephus-problem",
+    "title": "The Josephus Problem",
+    "difficulty": "Medium",
+    "estimatedTime": "45-90 minutes",
+    "statement": "There are 100 soldiers standing in a circle, numbered 1 to 100. Counting starts at soldier number 1, who remains alive. Soldier 2 is eliminated, soldier 3 remains alive, soldier 4 is eliminated, and so on. The elimination proceeds around the circle, skipping those still alive, and eliminating every second living soldier until only one remains. Which soldier is the last survivor?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Binary Representation",
+            "description": "Using base-2 arithmetic to track patterns in sequences.",
+            "resourceTitle": "Binary Number System",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Binary_number",
+            "readTime": "8 min"
+        },
+        {
+            "name": "Recurrence Relations",
+            "description": "An equation that recursively defines a sequence or multidimensional array of values.",
+            "resourceTitle": "Recurrence relation",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Recurrence_relation",
+            "readTime": "10 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Try playing the game with smaller numbers of soldiers, like $n = 2, 3, 4, 5, 6, 7, 8$. Do you see a pattern?"
+        },
+        {
+            "order": 2,
+            "content": "Notice what happens when the number of soldiers is exactly a power of 2 (e.g., 2, 4, 8, 16). Who survives?"
+        },
+        {
+            "order": 3,
+            "content": "Every number can be written as a power of 2 plus some remainder: $n = 2^m + l$. After $l$ people are eliminated, how many people are left, and whose turn is it?"
+        }
+    ],
+    "solution": "### Step 1: Analyzing Small Cases\nLet's denote the survivor for $n$ soldiers as $J(n)$. If we trace the game for small $n$:\n- $J(1) = 1$\n- $J(2) = 1$\n- $J(3) = 3$\n- $J(4) = 1$\n- $J(5) = 3$\n- $J(6) = 5$\n- $J(7) = 7$\n- $J(8) = 1$\n\n### Step 2: Finding the Pattern\nA clear pattern emerges: whenever $n$ is a power of 2 ($n = 2^m$), the survivor is always soldier #1. This makes sense: after one full trip around the circle, all even-numbered soldiers are eliminated, leaving exactly half the original number, and it's again #1's turn. This continues until #1 is the only one left.\n\n### Step 3: Generalizing the Rule\nFor any number $n$, we can write it as $n = 2^m + l$, where $2^m$ is the largest power of 2 less than or equal to $n$, and $l$ is the remainder. In our case, $n = 100$, so $m = 6$ ($2^6 = 64$) and $l = 36$.\nWe start eliminating people. Each elimination removes one person. Once we eliminate exactly $l$ people, there will be $n - l = 2^m$ people remaining.\nSince we eliminate every second person, removing $l$ people means $2l$ positions have been counted. The next person to act will be the one at position $2l + 1$.\nAt this exact moment, there are $2^m$ people remaining in the circle, and it is person $2l + 1$'s turn. Because the remaining number of people is a power of 2, the person whose turn it is will survive until the end.\n\n### Conclusion\nApplying our formula $J(n) = 2l + 1$ to $n = 100$:\n1. $100 = 64 + 36$, so $l = 36$.\n2. The survivor is $2(36) + 1 = 73$.\n\nSoldier 73 survives. $\\blacksquare$"
+}

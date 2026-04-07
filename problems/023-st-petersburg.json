@@ -1,0 +1,39 @@
+{
+    "id": "st-petersburg",
+    "title": "The St. Petersburg Paradox",
+    "difficulty": "Hard",
+    "estimatedTime": "45-90 minutes",
+    "statement": "A casino offers a unique game of chance: you repeatedly flip a fair coin until it lands on tails, at which point the game ends. If the first tails appears on the $k$-th flip, the casino pays you $2^k$ dollars. For example, getting tails on the very first flip pays $2$, getting heads then tails pays $4$, heads-heads-tails pays $8$, and so on. What is the expected mathematical value of your winnings? If you want to play this game rationally, what is the maximum finite amount of money you should be willing to pay the casino to enter the game?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Expected Value",
+            "description": "A predicted value of a variable, calculated as the sum of all possible values each multiplied by the probability of its occurrence.",
+            "resourceTitle": "Expected Value",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Expected_value",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Expected Utility Theory",
+            "description": "An economic theory dealing with decision-making processes regarding choices with uncertain outcomes.",
+            "resourceTitle": "Expected Utility",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Expected_utility_hypothesis",
+            "readTime": "15 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Calculate the expected value. The probability of getting tails on the 1st flip is $1/2$. The payout is 2. The expected value for this outcome is 1."
+        },
+        {
+            "order": 2,
+            "content": "Calculate the expected value contribution of the 2nd flip landing on tails. The probability is $1/4$. The payout is 4. Calculate for the 3rd, the 4th, and sum them as an infinite series."
+        },
+        {
+            "order": 3,
+            "content": "If the expected value evaluates to infinity, why wouldn't you pay a billion dollars to play? Consider the concept of 'Utility' vs strict monetary value."
+        }
+    ],
+    "solution": "### Step 1: Calculating the Expected Value\nThe expected value $E$ of a random variable is the sum over all possible outcomes characterizing the probability of the outcome multiplied by the payout. \n- Outcome 1 (Tails on flip 1): Probability is $\\frac{1}{2}$. Payout is $2^1 = 2$. Contribution: $\\frac{1}{2} \\times 2 = 1$\n- Outcome 2 (Heads, then Tails): Probability is $\\frac{1}{4}$. Payout is $2^2 = 4$. Contribution: $\\frac{1}{4} \\times 4 = 1$\n- Outcome 3 (H-H-T): Probability is $\\frac{1}{8}$. Payout is $2^3 = 8$. Contribution: $\\frac{1}{8} \\times 8 = 1$\n\nGeneralizing for the $k$-th flip:\n$E = \\sum_{k=1}^{\\infty} \\left( \\frac{1}{2^k} \\times 2^k \\right) = \\sum_{k=1}^{\\infty} 1 = 1 + 1 + 1 + \\dots = \\infty$\n\nStrict mathematical probability dictates the expected payoff of the game is **infinite**.\n\n### Step 2: The Paradox and Rationality\nThe theoretical expected value suggests a completely logical person should be willing to pay their entire life savings to play this game even once. However, no rational person would pay a million dollars to play, because there is a $50\\%$ chance they will walk away with only 2 dollars.\n\n### Step 3: Expected Utility Resolution\nThe paradox was historically resolved by Daniel Bernoulli, who introduced the concept of **Expected Utility**. Bernoulli argued that the subjective value (utility) of money to a person is non-linear—specifically, logarithmic. \nA million dollars is extremely valuable to a poor person, but nearly meaningless to a billionaire. Therefore, as payouts scale to infinity, their *utility* does not scale uniformly.\n\nIf we apply a logarithmic utility function $u(w) = \\ln(w)$ (meaning the perceived value of money scales logarithmically), the expected utility $E[u]$ becomes:\n$E[u] = \\sum_{k=1}^{\\infty} \\left( \\frac{\\ln(2^k)}{2^k} \\right) = \\ln(2) \\sum_{k=1}^{\\infty} \\frac{k}{2^k}$\n\nThrough infinite series summation, $\\sum \\frac{k}{2^k} = 2$. \nThus, the Expected Utility equates to $2 \\ln(2) = \\ln(4)$. \n\n### Conclusion\nUsing Bernoulli's logarithmic standard for the subjective value of money, the expected utility accurately mirrors the absolute monetary value of **$4**. \nTherefore, despite a mathematically infinite strict expected profit, a highly rational everyday person should only be willing to pay around **$4** (or low single digits, depending on their specific risk aversion curve) to enter. $\\blacksquare$"
+}

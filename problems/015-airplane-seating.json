@@ -1,0 +1,39 @@
+{
+    "id": "airplane-seating",
+    "title": "The Airplane Seating Problem",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "There are 100 passengers lined up to board an airplane with 100 sequentially numbered seats. Each passenger has a ticket for a specific assigned seat. The first passenger in line has lost their boarding pass and decides to board the plane and pick a seat uniformly at random. Every subsequent passenger boards one at a time and will take their own assigned seat if it is available. If their seat is already occupied, they will pick one of the remaining empty seats uniformly at random. What is the probability that the 100th passenger gets to sit in their originally assigned seat?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Probability Theory",
+            "description": "The branch of mathematics concerning numerical descriptions of how likely an event is to occur.",
+            "resourceTitle": "Probability",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Probability",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Symmetry in Mathematics",
+            "description": "Using symmetric states to evaluate probabilities without expanding vast decision trees.",
+            "resourceTitle": "Symmetry in Probability",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Symmetry",
+            "readTime": "5 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "What happens if the first passenger randomly picks seat 1? What if they pick seat 100?"
+        },
+        {
+            "order": 2,
+            "content": "If the first passenger picks seat $k$, what happens when the 2nd passenger up to the $(k-1)$-th passenger board?"
+        },
+        {
+            "order": 3,
+            "content": "When the final passenger boards, there is exactly one seat left. Which two seats are the only ones that could possibly be left?"
+        }
+    ],
+    "solution": "### Step 1: The Initial Choice\nWhen the first passenger boards, they choose one of the 100 seats at random. Let's analyze the extreme cases:\n1. If they sit in **Seat 1** (their own assigned seat), every subsequent passenger will find their assigned seat available. The 100th passenger will get Seat 100. (Probability 1)\n2. If they sit in **Seat 100**, then every passenger from 2 to 99 will sit in their correct seats. When the 100th passenger boards, only Seat 1 will be left. (Probability 0)\n\n### Step 2: The Chain Reaction\nIf the first passenger sits in an intermediate seat, say Seat $k$, then passengers 2 through $k-1$ will sit in their correct, empty seats. \nHowever, when passenger $k$ boards, they find their seat occupied. At this point, passenger $k$ is in the exact same situation as passenger 1 was: they must choose a remaining empty seat uniformly at random.\nThe set of remaining seats includes Seat 1, Seat 100, and some other intermediate seats.\n\n### Step 3: Analyzing Symmetry\nThe key insight is that anyone who is displaced and forced to pick a random seat will be equally likely to pick Seat 1 or Seat 100 from the remaining pool. \nAny intermediate seat chosen simply passes the \"bump\" down the line to another passenger later. The sequence of random seat changes entirely resolves the moment someone finally sits in either Seat 1 or Seat 100.\nBecause Seat 1 and Seat 100 are completely symmetric in the eyes of any passenger forced to guess, the chain reaction is equally likely to terminate with someone sitting in Seat 1 as it is with someone sitting in Seat 100.\n\n### Conclusion\nWhen the chain reaction finishes, one of those two \"terminal\" seats is taken. Thus, the last remaining seat for the 100th passenger will either be Seat 1 or Seat 100, with equal probability.\nTherefore, the probability that the 100th passenger gets their own seat is **1/2**. $\\blacksquare$"
+}

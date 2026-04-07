@@ -1,0 +1,39 @@
+{
+    "id": "stable-marriage",
+    "title": "The Stable Marriage Problem",
+    "difficulty": "Hard",
+    "estimatedTime": "60-120 minutes",
+    "statement": "There are $n$ men and $n$ women in a community. Each man evaluates all $n$ women and ranks them in order of priority, and each woman ranks all $n$ men in order of her strict preference. A complete matching of marriages is considered *unstable* if there exists a man and a woman who are not married to each other, but who both prefer each other over their actual current partners. Prove that for any arbitrary set of preferences, a stable complete matching always exists, and logically describe an algorithm to consistently find one.",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Matching Theory",
+            "description": "A branch of graph theory and economics regarding the assigning of sets.",
+            "resourceTitle": "Matching (Graph Theory)",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Matching_(graph_theory)",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Gale-Shapley Algorithm",
+            "description": "An algorithm for finding a solution to the stable matching problem.",
+            "resourceTitle": "Gale-Shapley Algorithm",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm",
+            "readTime": "15 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Imagine an algorithm that happens in isolated 'rounds'. Let the men 'propose' to their highest-ranked choices."
+        },
+        {
+            "order": 2,
+            "content": "If a woman receives multiple proposals, she temporarily accepts the best one and rejects the rest. Why 'temporarily'?"
+        },
+        {
+            "order": 3,
+            "content": "If a man gets rejected, he moves down his list. If a woman is proposed to by someone better than her current temporary match, she swaps them. Prove this MUST eventually terminate, and when it does, it MUST be stable."
+        }
+    ],
+    "solution": "### Step 1: The Deferred Acceptance Algorithm\nTo prove that a stable matching always exists, David Gale and Lloyd Shapley formulated the **Deferred Acceptance Algorithm**:\n1. Play proceeds in 'rounds'. Every unengaged man proposes to the highest woman on his preference list to whom he has not yet proposed.\n2. Each woman reviews all the proposals she received that round, *plus* her current temporary fiancé (if any).\n3. The woman tentatively accepts the proposal from the man she prefers highest among this pool, and permanently rejects all others.\n4. Men who are rejected become 'unengaged' again. In the next round, they simply cross that woman off their list and propose to the next woman on their list.\n5. The process repeats until no men are unengaged.\n\n### Step 2: Proof of Termination\nDoes the algorithm run forever? No. \nEvery time a man is rejected, he moves down his list. Because there are $n$ women, a man can be rejected at most $n$ times before his list is empty. Across all $n$ men, there are a maximum of $n^2$ possible proposals. Therefore, the algorithm is strictly guaranteed to terminate in finite time. Additionally, as soon as a woman receives a proposal, she is engaged from that point forward; she only 'upgrades' her fiancé, never returning to an unengaged state. Thus, all $n$ men and $n$ women will eventually be paired.\n\n### Step 3: Proof of Stability\nWe must prove by contradiction that the resulting matching contains no unstable pairs. \nAssume the matching is terminated, but it is unstable. This means there is a Man $A$ and a Woman $B$ who are not married to each other, but who strictly prefer each other over their assigned respective partners (Man $A$ is with Woman $Y$; Woman $B$ is with Man $X$).\n\nIf Man $A$ prefers Woman $B$ over his assigned partner $Y$, the algorithm dictates he *must* have proposed to Woman $B$ before ever proposing to $Y$ (since he proposes in strict, descending priority).\nSince Man $A$ proposed to Woman $B$, why aren't they together? The only way Woman $B$ did not end up with Man $A$ is if she rejected him. And the algorithm states that a woman only rejects a man if she receives a proposal from someone she ranks strictly *higher*.\nTherefore, the final partner of Woman $B$ (Man $X$) MUST be ranked higher on her list than Man $A$.\nThis directly contradicts the assumption that Woman $B$ prefers Man $A$ over her assigned partner.\n\n### Conclusion\nBecause an unstable pair implies a logical paradox within the matching constraints, the algorithm's final output is purely stable. The existence of the **[Gale-Shapley Algorithm](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm)** constructively proves that a stable complete matching universally exists for any possible set of ranked preferences. $\\blacksquare$"
+}

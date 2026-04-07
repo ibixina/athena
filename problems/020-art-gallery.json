@@ -1,0 +1,39 @@
+{
+    "id": "art-gallery",
+    "title": "The Art Gallery Problem",
+    "difficulty": "Hard",
+    "estimatedTime": "60-120 minutes",
+    "statement": "Imagine an art gallery whose floor plan is a purely simple polygon (no self-intersections, no internal holes) defined by $n$ straight walls, meaning it has $n$ vertices. You need to place stationary security guards inside the gallery. Each guard has a 360-degree field of view and can see indefinitely far, provided their line of sight is not blocked by a wall. In the geometric worst-case scenario for a gallery with $n$ vertices, what is the strict maximum number of guards that you could be forced to place such that every point inside the gallery is visible to at least one guard? Prove your answer.",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Polygon Triangulation",
+            "description": "The decomposition of a polygon into a set of triangles.",
+            "resourceTitle": "Polygon Triangulation",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Polygon_triangulation",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Graph Coloring",
+            "description": "An assignment of labels traditionally called 'colors' to elements of a graph subject to certain constraints.",
+            "resourceTitle": "Graph Coloring",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Graph_coloring",
+            "readTime": "10 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Any simple polygon can be cut into exactly $n-2$ discrete triangles by drawing non-intersecting diagonals between vertices."
+        },
+        {
+            "order": 2,
+            "content": "Think of the vertices as nodes in a graph. Can you perfectly 'color' the vertices of these triangles using exactly 3 colors, such that no two connected vertices share a color?"
+        },
+        {
+            "order": 3,
+            "content": "If you 3-color the vertices, each triangle will contain exactly one vertex of each color. What happens if you place guards only on the vertices of the 'least used' color?"
+        }
+    ],
+    "solution": "### Step 1: Polygon Triangulation\nThe problem asks for the worst-case number of guards for an $n$-sided polygon. We can solve this using **Chvátal's Art Gallery Theorem** and Steve Fisk's elegant proof.\nFirst, any simple polygon with $n$ vertices can be triangulated into exactly $n-2$ contiguous triangles by drawing straight non-intersecting diagonals between vertices. Because a triangle is a completely convex shape, a guard placed at *any* vertex of a given triangle can see the entire interior of that specific triangle.\n\n### Step 2: 3-Coloring the Graph\nIf we view the triangulated polygon as a graph (where corners are vertices and walls/diagonals are edges), this graph can always be strictly 3-colored. \nTo 3-color it, we assign each vertex a color—Red, Blue, or Green—such that no line segment connects two vertices of the same color. Because the dual graph of a triangulated simple polygon is a tree, we can start at any triangle (coloring its 3 vertices R, B, G) and proceed outwards without ever encountering an impossible color conflict.\n\n### Step 3: Exploliting the Coloring\nBecause we used exactly 3 colors, every single triangle in the entire polygon has precisely one Red vertex, one Blue vertex, and one Green vertex. \nIf we were to place a guard on every Red vertex, the entire interior of every triangle would be monitored, because every triangle contains a Red vertex. The same is true if we put guards exclusively on Blue vertices, or exclusively on Green vertices.\n\n### Step 4: The Minimum Color Class\nBy the [Pigeonhole Principle](https://en.wikipedia.org/wiki/Pigeonhole_Principle), if $n$ vertices are divided amongst 3 colors, at least one of those colors must be assigned to at most $\\lfloor n/3 \\rfloor$ vertices. \nBy actively selecting the 'least used' color array and placing guards there, we guarantee that we never need more than $\\lfloor n/3 \\rfloor$ guards to monitor every triangle, and thus the entire gallery.\n\n### Proof of the Worst-Case Lower Bound\nIs it possible we could get away with fewer? No. Consider a comb-like polygon with $\\lfloor n/3 \\rfloor$ 'prongs'. Each prong requires its own distinct guard to see into the depth of the prong, as the central hallway does not allow sightlines into multiple prongs simultaneously.\n\n### Conclusion\nThe maximum number of guards necessary in the worst-case scenario is exactly **$\\lfloor n/3 \\rfloor$**. $\\blacksquare$"
+}

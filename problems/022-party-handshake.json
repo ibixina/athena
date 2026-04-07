@@ -1,0 +1,39 @@
+{
+    "id": "party-handshake",
+    "title": "The Party Handshake Problem",
+    "difficulty": "Medium",
+    "estimatedTime": "30-60 minutes",
+    "statement": "You and your partner attend a party with four other couples, making 10 people in total. As people arrive, greetings are exchanged with handshakes. Naturally, no one shakes hands with themselves, and no one shakes hands with their own partner. After all the handshaking is complete, you ask each of the other 9 people (including your partner) how many hands they shook. Remarkably, you receive 9 different answers. How many hands did your partner shake?",
+    "publishDate": "2026-04-08",
+    "concepts": [
+        {
+            "name": "Graph Theory",
+            "description": "The study of graphs, mathematical structures used to model pairwise relations.",
+            "resourceTitle": "Graph Theory",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Graph_theory",
+            "readTime": "10 min"
+        },
+        {
+            "name": "Degree Sequence",
+            "description": "A monotonic non-increasing sequence of the vertex degrees of a graph.",
+            "resourceTitle": "Degree (Graph Theory)",
+            "resourceUrl": "https://en.wikipedia.org/wiki/Degree_(graph_theory)",
+            "readTime": "5 min"
+        }
+    ],
+    "hints": [
+        {
+            "order": 1,
+            "content": "Since there are 10 people, what is the maximum number of people any one person can shake hands with? Remember, you can't shake your own hand, nor your partner's."
+        },
+        {
+            "order": 2,
+            "content": "The 9 distinct answers you received MUST be the numbers 0, 1, 2, 3, 4, 5, 6, 7, and 8. Who is married to the person who shook 8 hands?"
+        },
+        {
+            "order": 3,
+            "content": "Work your way inward. The person who shook 8 hands must be partners with the person who shook 0 hands. The person who shook 7 must be partnered with whoever shook 1."
+        }
+    ],
+    "solution": "### Step 1: Clarifying the Maximums\nThere are 10 people at the party. A single person cannot shake hands with themselves (1 person), nor with their partner (1 person). Thus, the absolute maximum number of hands anyone could possibly shake is $10 - 2 = 8$.\n\n### Step 2: Interpreting the Responses\nYou asked 9 different people and got 9 completely different answers. Because the answers must be integers between 0 and 8 inclusive, the 9 answers you received MUST perfectly map to the set $\\{0, 1, 2, 3, 4, 5, 6, 7, 8\\}$.\n\n### Step 3: Determining the Couples\nLet's map out the nodes (people). \nLook at the person who answered **8**. They shook hands with every single eligible person at the party. That means every other couple *must* have shaken their hand.\nNow look at the person who answered **0**. They shook no one's hand.\nIf someone shook 8 hands, they reached everybody. The only person remaining who could possibly have a 0 is the partner of the person who shook 8. Therefore, **8 and 0 are a couple**.\n\nNow, temporarily mentally 'remove' the 8 and 0 couple from the diagram. Subtract 1 from everybody's totals (since everyone else shook 8's hand).\nThe remaining network of 8 people now has adjusted handshake counts ranging from 0 to 6. But originally, these were the people who answered 1 through 7. \nThe person who answered **7** (now 6) shook hands with everyone remaining. The person who answered **1** (now 0) shook hands with no one remaining. By the exact same logic, **7 and 1 are a couple**.\n\nFollowing this recursive pairing pattern:\n- **8 and 0** are a couple.\n- **7 and 1** are a couple.\n- **6 and 2** are a couple.\n- **5 and 3** are a couple.\n\n### Conclusion\nAll unpartnered bounds shrink inwards symmetrically. The 8 distinct numbers we investigated form 4 complete couples. \nWe accounted for 8 specific people, leaving exactly two people without determined pairs from our logical matching: you, and your partner. \nThe only number strictly remaining in the full set of answers that we didn't map a couple for is **4**. Wait, you and your partner are a couple, so you both must share the middle ground.\nYour partner's handshake count was logically deduced to be **4**, leaving you as the other 4. $\\blacksquare$"
+}
