@@ -154,6 +154,20 @@ function renderActions(p: Problem, solved: boolean): string {
   `;
 }
 
+function getTimeUntilNextProblem(): string {
+  const now = new Date();
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+  const diff = tomorrow.getTime() - now.getTime();
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+let countdownInterval: ReturnType<typeof setInterval> | null = null;
+
 function renderCompletedBanner(): string {
   return `
     <div class="completed-banner">
@@ -161,8 +175,27 @@ function renderCompletedBanner(): string {
       <div class="text">
         <strong>Completed!</strong> Great work on today's problem.
       </div>
+      <div class="countdown-timer">
+        <span class="countdown-label">Next problem in</span>
+        <span class="countdown-value" id="countdown">${getTimeUntilNextProblem()}</span>
+      </div>
     </div>
   `;
+}
+
+function startCountdown(): void {
+  if (countdownInterval) clearInterval(countdownInterval);
+  const el = document.getElementById('countdown');
+  if (!el) return;
+  countdownInterval = setInterval(() => {
+    const timeLeft = getTimeUntilNextProblem();
+    el.textContent = timeLeft;
+    if (timeLeft === '00:00:00') {
+      clearInterval(countdownInterval!);
+      countdownInterval = null;
+      refreshApp();
+    }
+  }, 1000);
 }
 
 function renderNotesPane(): string {
@@ -384,6 +417,9 @@ document.addEventListener('click', (e) => {
 function refreshApp(): void {
   document.querySelector<HTMLDivElement>('#app')!.innerHTML = renderApp();
   setupResizers();
+  if (isProblemSolved(currentProblem.id)) {
+    startCountdown();
+  }
 }
 
 function setupResizers(): void {
